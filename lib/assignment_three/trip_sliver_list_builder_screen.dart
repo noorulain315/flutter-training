@@ -41,12 +41,14 @@ class TripSliverListBuilderScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            buildTripTitle(trip),
-                            Text(trip.description ?? ''),
-                          ],
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              buildTripTitle(trip),
+                              Text(trip.description ?? ''),
+                            ],
+                          ),
                         ),
 
                         Column(
@@ -80,12 +82,15 @@ class TripSliverListBuilderScreen extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         const SizedBox(width: 8),
-        Text(
-          trip.status.name,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-            color: getStatusColor(trip.status),
+        Flexible(
+          child: Text(
+            trip.status.name,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: getStatusColor(trip.status),
+            ),
           ),
         ),
       ],
