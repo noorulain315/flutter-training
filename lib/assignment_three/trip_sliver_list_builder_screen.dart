@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/assignment_one/trip_repository.dart';
+import 'package:go_router/go_router.dart';
 
 class TripSliverListBuilderScreen extends StatelessWidget {
   final List<Trip> trips;
@@ -36,38 +37,41 @@ class TripSliverListBuilderScreen extends StatelessWidget {
               return SizedBox(
                 width: double.infinity,
                 child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              buildTripTitle(trip),
-                              Text(trip.description ?? ''),
-                            ],
-                          ),
-                        ),
-
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              'From: ${trip.startDate.toLocal().toString().split(' ')[0]}',
-                            ),
-                            Text(
-                              'To: ${trip.endDate.toLocal().toString().split(' ')[0]}',
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  child: InkWell(
+                    onTap: () {
+                      context.push('/trip-details', extra: trip);
+                    },
+                    child: buildListItem(trip),
                   ),
                 ),
               );
             }, childCount: trips.length),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildListItem(Trip trip) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [buildTripTitle(trip), Text(trip.description ?? '')],
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                'From: ${trip.startDate.toLocal().toString().split(' ')[0]}',
+              ),
+              Text('To: ${trip.endDate.toLocal().toString().split(' ')[0]}'),
+            ],
           ),
         ],
       ),
