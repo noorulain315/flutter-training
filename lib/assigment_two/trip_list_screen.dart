@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_training/assigment_two/trip_card_widget.dart';
 import 'package:flutter_training/assignment_three/trip_list_view_builder_screen.dart';
 import 'package:flutter_training/assignment_three/trip_sliver_list_builder_screen.dart';
+import 'package:go_router/go_router.dart';
 
 import '../assignment_one/trip_repository.dart';
 
@@ -26,10 +27,13 @@ class TripListScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('Button Clicked! ')));
+        onPressed: () async {
+          final trip = await context.push<Trip>('/add-trip');
+          if (trip != null) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text('${trip.name} is added')));
+          }
         },
         child: const Icon(Icons.add),
       ),
