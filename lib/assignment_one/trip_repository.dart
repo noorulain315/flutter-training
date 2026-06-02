@@ -1,5 +1,5 @@
 class TripRepository {
-  Future fetchTrips() async {
+  Future<List<Trip>> fetchTrips() async {
     await Future.delayed(Duration(seconds: 1));
     List<Trip> trips = [
       Trip(
