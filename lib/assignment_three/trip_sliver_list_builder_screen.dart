@@ -4,50 +4,54 @@ import 'package:go_router/go_router.dart';
 
 class TripSliverListBuilderScreen extends StatelessWidget {
   final List<Trip> trips;
+  final Future<void> Function() onRefresh;
 
-  const TripSliverListBuilderScreen(this.trips, {super.key});
+  const TripSliverListBuilderScreen(this.trips, this.onRefresh, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            floating: true,
-            pinned: true,
-            expandedHeight: 200,
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: const Text(
-              'All Trips',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image(
-                image: NetworkImage('https://picsum.photos/800/400'),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              final trip = trips[index];
-              return SizedBox(
-                width: double.infinity,
-                child: Card(
-                  child: InkWell(
-                    onTap: () {
-                      context.push('/trip-details', extra: trip);
-                    },
-                    child: buildListItem(trip),
-                  ),
+      body: RefreshIndicator(
+        onRefresh: onRefresh,
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              floating: true,
+              pinned: true,
+              expandedHeight: 200,
+              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+              title: const Text(
+                'All Trips',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-              );
-            }, childCount: trips.length),
-          ),
-        ],
+              ),
+              flexibleSpace: FlexibleSpaceBar(
+                background: Image(
+                  image: NetworkImage('https://picsum.photos/800/400'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final trip = trips[index];
+                return SizedBox(
+                  width: double.infinity,
+                  child: Card(
+                    child: InkWell(
+                      onTap: () {
+                        context.push('/trip-details', extra: trip);
+                      },
+                      child: buildListItem(trip),
+                    ),
+                  ),
+                );
+              }, childCount: trips.length),
+            ),
+          ],
+        ),
       ),
     );
   }

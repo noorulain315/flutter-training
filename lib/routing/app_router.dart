@@ -11,10 +11,7 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) {
-        return BlocProvider(
-          create: (_) => TripsCubit(TripRepository())..loadTrips(),
-          child: TripListScreen(),
-        );
+        return TripListScreen();
       },
     ),
     GoRoute(

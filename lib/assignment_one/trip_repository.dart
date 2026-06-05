@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 class TripRepository {
   Future<List<Trip>> fetchTrips() async {
     await Future.delayed(Duration(seconds: 1));
@@ -171,13 +173,13 @@ extension DateTimeExtension on DateTime {
   bool isUpComing() => isAfter(DateTime.now());
 }
 
-class Trip {
-  int id;
-  String name;
-  DateTime startDate;
-  DateTime endDate;
-  String? description;
-  TripStatus status;
+class Trip extends Equatable {
+  final int id;
+  final String name;
+  final DateTime startDate;
+  final DateTime endDate;
+  final String? description;
+  final TripStatus status;
 
   Trip(
     this.id,
@@ -187,6 +189,16 @@ class Trip {
     this.description,
     this.status,
   );
+
+  @override
+  List<Object?> get props => [
+    id,
+    name,
+    startDate,
+    endDate,
+    description,
+    status,
+  ];
 }
 
 enum TripStatus { planning, active, completed }

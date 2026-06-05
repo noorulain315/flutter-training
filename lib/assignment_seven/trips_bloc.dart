@@ -1,17 +1,18 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_training/assignment_one/trip_repository.dart';
+import 'package:flutter_training/assignment_seven/trips_event.dart';
 import 'package:flutter_training/assignment_six/TripState.dart';
 
-class TripsCubit extends Cubit<TripState> {
+class TripsBloc extends Bloc<TripsEvent, TripState> {
   final TripRepository _repository;
 
-  TripsCubit(this._repository) : super(Initial());
+  TripsBloc(this._repository) : super(Initial()) {
+    on<LoadTrips>(_onLoadTrips);
+    on<AddTrips>(_onAddTrip);
+  }
 
-  Future loadTrips() async {
-    debugPrint('loadTrips called');
+  Future<void> _onLoadTrips(LoadTrips event, Emitter<TripState> emit) async {
     emit(TripsLoading());
-
     try {
       final trips = await _repository.fetchTrips();
       emit(TripsLoaded(trips));
@@ -20,13 +21,10 @@ class TripsCubit extends Cubit<TripState> {
     }
   }
 
-  void addTrips(Trip trip) {
-    debugPrint('addTrips called, current state: ${state.runtimeType}');
+  void _onAddTrip(AddTrips event, Emitter<TripState> emit) {
     if (state is TripsLoaded) {
       final currentState = state as TripsLoaded;
-      final newList = [trip, ...currentState.trips];
-      debugPrint('emitting TripsLoaded with ${newList.length} trips');
-      emit(TripsLoaded(newList));
+      emit(TripsLoaded([event.trip, ...currentState.trips]));
     }
   }
 }
