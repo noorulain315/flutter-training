@@ -12,6 +12,7 @@ class PostRemoteDataSource {
     final response = await dio.get('/posts');
     return (response.data as List)
         .map((json) => Post.fromJson(json as Map<String, dynamic>))
-        .toList();
+        .toList()
+        ;
   }
 }
