@@ -1,5 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_training/assigment_two/trip_list_screen.dart';
+import 'package:flutter_training/assignment_eight/datasource/post_remote_data_source.dart';
+import 'package:flutter_training/assignment_eight/network/api_client.dart';
+import 'package:flutter_training/assignment_eight/posts_cubit.dart';
+import 'package:flutter_training/assignment_eight/screens/posts_screen.dart';
 import 'package:flutter_training/assignment_four_five/add_trip_screen.dart';
 import 'package:flutter_training/assignment_four_five/trip_details_screen.dart';
 import 'package:flutter_training/assignment_one/trip_repository.dart';
@@ -24,6 +28,17 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/add-trip',
       builder: (context, state) => const AddTripScreen(),
+    ),
+    GoRoute(
+      path: '/posts',
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) => PostsCubit(
+            PostRemoteDataSource(ApiClient().dio),
+          )..loadPosts(),
+          child: const PostsScreen(),
+        );
+      },
     ),
   ],
 );

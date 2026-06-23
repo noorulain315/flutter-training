@@ -20,7 +20,14 @@ class TripListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Trips Advisory"),
+        title: const Text("Trips Advisory"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.article_outlined),
+            tooltip: 'Posts',
+            onPressed: () => context.push('/posts'),
+          ),
+        ],
       ),
       body: BlocBuilder<TripsBloc, TripState>(
         builder: (context, state) {
