@@ -24,8 +24,13 @@ class TripListScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.article_outlined),
-            tooltip: 'Posts',
+            tooltip: 'Posts (Bloc)',
             onPressed: () => context.push('/posts'),
+          ),
+          IconButton(
+            icon: const Icon(Icons.dynamic_feed_outlined),
+            tooltip: 'Posts (Riverpod)',
+            onPressed: () => context.push('/riverpod-posts'),
           ),
         ],
       ),
