@@ -1,6 +1,6 @@
 # Flutter Training
 
-A Flutter training project covering core Flutter concepts progressively across ten assignments — from basic UI and state management to clean architecture and dependency injection.
+A Flutter training project covering core Flutter concepts progressively across eleven assignments — from basic UI and state management to clean architecture, dependency injection, and native device features.
 
 ## Assignments
 
@@ -15,6 +15,7 @@ A Flutter training project covering core Flutter concepts progressively across t
 | 8 | Dio + Remote Data | Dio, JSON serialization (`json_annotation`), `PostRemoteDataSource` |
 | 9 | Riverpod | `flutter_riverpod`, `FutureProvider`, `ConsumerWidget` |
 | 10 | Clean Architecture + DI | Domain/Data/Presentation layers, `FutureProvider` as DI, use cases, repository pattern |
+| 11 | Camera | `image_picker`, camera capture, gallery picker, runtime permissions (iOS & Android) |
 
 ## Architecture (Assignment 10)
 
@@ -44,6 +45,7 @@ assignment_ten/
 - **Dio** — HTTP client
 - **json_annotation** / **json_serializable** — JSON code generation
 - **mocktail** / **bloc_test** — testing utilities
+- **image_picker** — camera capture and gallery access
 
 ## Getting Started
 
