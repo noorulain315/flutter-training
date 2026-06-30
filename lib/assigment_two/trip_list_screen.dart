@@ -37,6 +37,11 @@ class TripListScreen extends StatelessWidget {
             tooltip: 'Posts (Clean)',
             onPressed: () => context.push('/clean-posts'),
           ),
+          IconButton(
+            icon: const Icon(Icons.camera_alt_outlined),
+            tooltip: 'Camera',
+            onPressed: () => context.push('/camera'),
+          ),
         ],
       ),
       body: BlocBuilder<TripsBloc, TripState>(
